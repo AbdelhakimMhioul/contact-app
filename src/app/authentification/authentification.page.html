@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Authentification</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="authForm" (ngSubmit)="login()">
+    <ion-item fill="solid">
+      <ion-input
+        type="text"
+        placeholder="Email"
+        formControlName="email"
+      ></ion-input>
+      <ion-note
+        slot="error"
+        *ngIf="(getEmail().dirty || getEmail().touched) && getEmail().errors"
+      >
+        Email is invalid
+      </ion-note>
+    </ion-item>
+
+    <ion-item fill="solid">
+      <ion-input
+        type="password"
+        placeholder="Password"
+        formControlName="password"
+      ></ion-input>
+      <ion-note
+        slot="error"
+        *ngIf="(getPassword().dirty || getPassword().touched) && getPassword().errors"
+      >
+        Password is invalid
+      </ion-note>
+    </ion-item>
+
+    <ion-button
+      expand="block"
+      fill="outline"
+      type="submit"
+      [disabled]="!authForm.valid"
+    >
+      Login
+    </ion-button>
+    <ion-button expand="full" type="button" (click)="register()">
+      Create account
+    </ion-button>
+  </form>
+</ion-content>

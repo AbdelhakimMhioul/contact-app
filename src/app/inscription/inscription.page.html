@@ -1,0 +1,81 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Inscription</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="inscriptionForm">
+    <ion-item fill="solid">
+      <ion-input
+        type="text"
+        placeholder="Nom"
+        formControlName="nom"
+      ></ion-input>
+      <ion-note
+        slot="error"
+        *ngIf="(getNom().dirty || getNom().touched) && getNom().errors"
+      >
+        Nom is invalid
+      </ion-note>
+    </ion-item>
+    <ion-item fill="solid">
+      <ion-input
+        type="text"
+        placeholder="Prenom"
+        formControlName="prenom"
+      ></ion-input>
+      <ion-note
+        slot="error"
+        *ngIf="(getPrenom().dirty || getPrenom().touched) && getPrenom().errors"
+      >
+        Prenom is invalid
+      </ion-note>
+    </ion-item>
+    <ion-item fill="solid">
+      <ion-input
+        type="text"
+        placeholder="Email"
+        formControlName="email"
+      ></ion-input>
+      <ion-note
+        slot="error"
+        *ngIf="(getEmail().dirty || getEmail().touched) && getEmail().errors"
+      >
+        Email is invalid
+      </ion-note>
+    </ion-item>
+    <ion-item fill="solid">
+      <ion-input
+        type="text"
+        placeholder="Phone"
+        formControlName="phone"
+      ></ion-input>
+      <ion-note
+        slot="error"
+        *ngIf="(getPhone().dirty || getPhone().touched) && getPhone().errors"
+      >
+        Phone is invalid
+      </ion-note>
+    </ion-item>
+    <ion-item fill="solid">
+      <ion-input
+        type="password"
+        placeholder="Password"
+        formControlName="password"
+      ></ion-input>
+      <ion-note
+        slot="error"
+        *ngIf="(getPassword().dirty || getPassword().touched) && getPassword().errors"
+      >
+        Password is invalid
+      </ion-note>
+    </ion-item>
+    <ion-button expand="block" fill="outline" (click)="register()">
+      Register
+    </ion-button>
+  </form>
+</ion-content>

@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-item>
+    <ion-img [src]="" disabled="true"></ion-img>
+  </ion-item>
+  <ion-item>
+    <ion-label>Nom</ion-label>
+    <ion-input type="text" disabled="true"> {{profile.nom}} </ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Prenom</ion-label>
+    <ion-input type="text" disabled="true"> {{profile.prenom}}</ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Email</ion-label>
+    <ion-input type="email" disabled="true"> {{profile.email}}</ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Phone</ion-label>
+    <ion-input type="tel" disabled="true"> {{profile.phone}} </ion-input>
+  </ion-item>
+  <ion-button expand="block" fill="outline" (click)="updateProfile()">
+    Update Profile
+  </ion-button>
+</ion-content>
