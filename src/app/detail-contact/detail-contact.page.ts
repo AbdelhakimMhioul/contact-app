@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { NavParams } from '@ionic/angular';
 import Contact from 'src/interfaces/Contact';
+import { ContactAccessService } from './../services/contact-access.service';
 
 @Component({
   selector: 'app-detail-contact',
@@ -10,16 +11,39 @@ import Contact from 'src/interfaces/Contact';
   providers: [NavParams],
 })
 export class DetailContactPage implements OnInit {
-  contact!: Contact;
+  contact: Contact = {
+    id: '',
+    nom: '',
+    prenom: '',
+    phone: '',
+    email: '',
+    src: '',
+    service: ' ',
+    adresse: '',
+    ville: '',
+    compte_email: '',
+  };
 
-  constructor(private route: ActivatedRoute, private router: Router) {
-    this.route.queryParams.subscribe((_p) => {
-      const navParams = this.router.getCurrentNavigation()?.extras.state;
-      if (navParams) this.contact = navParams['contact'];
-    });
+  constructor(
+    private router: Router,
+    private contactAccessService: ContactAccessService
+  ) {}
+
+  ionViewWillEnter() {}
+
+  async ngOnInit() {
+    const routerState = this.router.getCurrentNavigation()?.extras.state;
+    if (routerState) {
+      const contactId = routerState['id'];
+
+      // query the contact by id from firebase
+      (await this.contactAccessService.getContactById(contactId)).subscribe(
+        (contact) => {
+          this.contact = contact;
+        }
+      );
+    }
   }
-
-  ngOnInit() {}
 
   modifierContact() {
     console.log('Modifier le contact');

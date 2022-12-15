@@ -35,11 +35,6 @@ export class AppComponent {
             icon: 'log-in',
           },
           { title: 'Inscription', url: '/inscription', icon: 'infinite' },
-          {
-            title: 'Detail contact',
-            url: '/detail-contact',
-            icon: 'code-working',
-          },
           { title: 'Ajouter contact', url: '/ajouter-contact', icon: 'add' },
         ];
       } else {
@@ -51,11 +46,6 @@ export class AppComponent {
             icon: 'home',
           },
           { title: 'Liste des contacts', url: '/liste-contacts', icon: 'list' },
-          {
-            title: 'Detail contact',
-            url: '/detail-contact',
-            icon: 'code-working',
-          },
           { title: 'Ajouter contact', url: '/ajouter-contact', icon: 'add' },
           {
             title: 'Profile',

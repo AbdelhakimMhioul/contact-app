@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavigationExtras, Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import Contact from 'src/interfaces/Contact';
 import { ContactAccessService } from './../services/contact-access.service';
@@ -13,7 +14,8 @@ export class ListeContactsPage implements OnInit {
 
   constructor(
     private contactAccessService: ContactAccessService,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private router: Router
   ) {}
 
   async ngOnInit() {
@@ -23,9 +25,13 @@ export class ListeContactsPage implements OnInit {
   }
 
   detailsContact(contact: Contact) {
-    this.navCtrl.navigateForward('/detail-contact', {
-      queryParams: { state: JSON.stringify(contact) },
-    });
+    const navigationExtras: NavigationExtras = {
+      state: {
+        id: contact.id,
+      },
+    };
+
+    this.router.navigate(['/detail-contact'], navigationExtras);
   }
 
   modifierContact(contact: Contact) {

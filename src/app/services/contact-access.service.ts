@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { Auth } from '@angular/fire/auth';
 import {
   addDoc,
@@ -20,8 +20,10 @@ import Contact from 'src/interfaces/Contact';
 @Injectable({
   providedIn: 'root',
 })
-export class ContactAccessService {
+export class ContactAccessService implements OnInit {
   constructor(private firestore: Firestore, private auth: Auth) {}
+
+  ngOnInit() {}
 
   getComptes(): Observable<Compte[]> {
     const comptesRef = collection(this.firestore, 'comptes');
@@ -47,7 +49,10 @@ export class ContactAccessService {
     const querySnapshot = await getDocs(q);
     let contacts: Contact[] = [];
     querySnapshot.forEach((doc) => {
-      contacts.push(doc.data() as Contact);
+      contacts.push({
+        id: doc.id,
+        ...doc.data(),
+      } as Contact);
     });
     return new Observable((observer) => {
       observer.next(contacts);
