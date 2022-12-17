@@ -22,6 +22,7 @@ export class DetailContactPage implements OnInit {
     adresse: '',
     ville: '',
     compte_email: '',
+    shared: false
   };
 
   constructor(
@@ -31,29 +32,33 @@ export class DetailContactPage implements OnInit {
 
   ionViewWillEnter() {}
 
-  async ngOnInit() {
+  ngOnInit() {
     const routerState = this.router.getCurrentNavigation()?.extras.state;
     if (routerState) {
       const contactId = routerState['id'];
-
-      // query the contact by id from firebase
-      (await this.contactAccessService.getContactById(contactId)).subscribe(
-        (contact) => {
-          this.contact = contact;
-        }
-      );
+      this.contactAccessService
+        .getContactById(contactId)
+        .subscribe((contact) => (this.contact = contact));
     }
   }
 
-  modifierContact() {
-    console.log('Modifier le contact');
+  updateContact(contact: Contact) {
+    this.contactAccessService
+      .updateContactById(contact.id || '0', contact)
+      .then(() =>
+        this.router.navigate(['/liste-contacts'], { replaceUrl: true })
+      )
+      .catch((error) => console.log(error));
   }
 
-  supprimerContact() {
-    console.log('Supprimer le contact');
+  deleteContact(contact: Contact) {
+    this.contactAccessService
+      .deleteContactById(contact.id || '0')
+      .then(() => {
+        this.router.navigate(['/liste-contacts'], { replaceUrl: true });
+      })
+      .catch((error) => console.log(error));
   }
 
-  partagerContact() {
-    console.log('Partager le contact');
-  }
+  shareContact(contact: Contact) {}
 }

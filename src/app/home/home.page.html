@@ -8,5 +8,16 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <h1>Welcome to Contact App</h1>
+  <h1>Liste de tous les contacts</h1>
+  <ion-list>
+    <ion-item
+      *ngFor="let contact of contacts"
+      (click)="detailsContact(contact)"
+    >
+      <ion-thumbnail slot="start">
+        <ion-img [src]="contact.src"></ion-img>
+      </ion-thumbnail>
+      <ion-label>{{contact.nom}} {{contact.prenom}}</ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>

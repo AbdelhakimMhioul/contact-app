@@ -10,59 +10,39 @@
 <ion-content class="ion-padding" *ngIf="contact">
   <ion-item>
     <ion-label>Nom</ion-label>
-    <ion-input type="text" value="{{contact.nom}}" disabled="true"></ion-input>
+    <ion-input type="text" [(ngModel)]="contact.nom"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label>Prenom</ion-label>
-    <ion-input
-      type="text"
-      value="{{contact.prenom}}"
-      disabled="true"
-    ></ion-input>
+    <ion-input type="text" [(ngModel)]="contact.prenom"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label>Email</ion-label>
-    <ion-input
-      type="email"
-      value="{{contact.email}}"
-      disabled="true"
-    ></ion-input>
+    <ion-input type="email" [(ngModel)]="contact.email"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label>Tel</ion-label>
-    <ion-input type="Tel" value="{{contact.phone}}" disabled="true"></ion-input>
+    <ion-input type="Tel" [(ngModel)]="contact.phone"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label>Adresse</ion-label>
-    <ion-input
-      type="text"
-      value="{{contact.adresse}}"
-      disabled="true"
-    ></ion-input>
+    <ion-input type="text" [(ngModel)]="contact.adresse"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label>Ville</ion-label>
-    <ion-input
-      type="text"
-      value="{{contact.ville}}"
-      disabled="true"
-    ></ion-input>
+    <ion-input type="text" [(ngModel)]="contact.ville"></ion-input>
   </ion-item>
   <ion-item>
     <ion-label>Service</ion-label>
-    <ion-input
-      type="text"
-      value="{{contact.service}}"
-      disabled="true"
-    ></ion-input>
+    <ion-input type="text" [(ngModel)]="contact.service"></ion-input>
   </ion-item>
-  <ion-button expand="block" fill="outline" (click)="modifierContact()">
+  <ion-button expand="block" fill="outline" (click)="updateContact(contact)">
     Modifier
   </ion-button>
-  <ion-button expand="block" fill="outline" (click)="supprimerContact()">
+  <ion-button expand="block" fill="outline" (click)="deleteContact(contact)">
     Supprimer
   </ion-button>
-  <ion-button expand="block" fill="outline" (click)="partagerContact()">
+  <ion-button expand="block" fill="outline" (click)="shareContact(contact)">
     Partager
   </ion-button>
 </ion-content>

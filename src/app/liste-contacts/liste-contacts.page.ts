@@ -19,9 +19,8 @@ export class ListeContactsPage implements OnInit {
   ) {}
 
   async ngOnInit() {
-    (await this.contactAccessService.getContacts()).subscribe((contacts) => {
-      this.contacts = contacts;
-    });
+    const data = await this.contactAccessService.getContacts();
+    data.subscribe((contacts) => (this.contacts = contacts));
   }
 
   detailsContact(contact: Contact) {
@@ -35,7 +34,7 @@ export class ListeContactsPage implements OnInit {
   }
 
   modifierContact(contact: Contact) {
-    console.log('Modifier le contact', contact);
+    console.log('Modifier le contactt', contact);
   }
 
   ajouterContact() {

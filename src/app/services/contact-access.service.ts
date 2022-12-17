@@ -39,20 +39,27 @@ export class ContactAccessService implements OnInit {
     }) as unknown as Observable<Compte>;
   }
 
-  async getContacts(): Promise<Observable<Contact[]>> {
+  async getContacts(shared = false): Promise<Observable<Contact[]>> {
     const user = this.auth.currentUser;
     const contactsRef = collection(this.firestore, 'contacts');
-    const q = query(
-      contactsRef,
-      where('compte_email', '==', doc(this.firestore, 'comptes', user!.uid))
-    );
-    const querySnapshot = await getDocs(q);
     let contacts: Contact[] = [];
+    let q;
+
+    if (user) {
+      q = query(
+        contactsRef,
+        where('compte_email', '==', doc(this.firestore, 'comptes', user!.uid))
+      );
+    } else {
+      q = query(contactsRef, where('shared', '==', shared));
+    }
+
+    const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       contacts.push({
         id: doc.id,
         ...doc.data(),
-      } as Contact);
+      } as Contact as Contact);
     });
     return new Observable((observer) => {
       observer.next(contacts);
@@ -76,9 +83,19 @@ export class ContactAccessService implements OnInit {
     return addDoc(comptesRef, compte);
   }
 
+  updateContactById(id: string, contact: Contact) {
+    const contactRef = doc(this.firestore, 'contacts', id);
+    return setDoc(contactRef, contact);
+  }
+
   updateCompteById(id: string, contact: Contact) {
     const contactRef = doc(this.firestore, 'contacts', id);
     return setDoc(contactRef, contact);
+  }
+
+  deleteContactById(id: string) {
+    const contactRef = doc(this.firestore, 'contacts', id);
+    return deleteDoc(contactRef);
   }
 
   deleteCompteById(id: string) {

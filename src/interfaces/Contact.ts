@@ -9,4 +9,5 @@ export default interface Contact {
   service: string;
   src: string;
   compte_email: any;
+  shared: boolean;
 }

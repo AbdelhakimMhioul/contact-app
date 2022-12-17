@@ -50,6 +50,7 @@ export class AjouterContactPage implements OnInit {
         service: this.getService(),
         src: 'https://picsum.photos/200/300',
         compte_email: doc(this.firestore, 'comptes', user.uid),
+        shared: false,
       } as Contact);
       this.navCtrl.navigateForward('/liste-contacts', { replaceUrl: true });
     } else {
