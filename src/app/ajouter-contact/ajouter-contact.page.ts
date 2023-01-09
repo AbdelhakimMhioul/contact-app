@@ -48,7 +48,7 @@ export class AjouterContactPage implements OnInit {
         adresse: this.getAdresse(),
         ville: this.getVille(),
         service: this.getService(),
-        src: 'https://picsum.photos/200/300',
+        src: '',
         compte_email: doc(this.firestore, 'comptes', user.uid),
         shared: false,
       } as Contact);

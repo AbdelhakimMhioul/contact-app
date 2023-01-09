@@ -8,6 +8,10 @@
 </ion-header>
 
 <ion-content>
+  <ion-searchbar
+    (ionChange)="searchContact($event)"
+    placeholder="Rechercher un contact"
+  ></ion-searchbar>
   <ion-list>
     <ion-item
       *ngFor="let contact of contacts"
@@ -19,9 +23,15 @@
       <ion-label>{{contact.nom}} {{contact.prenom}}</ion-label>
     </ion-item>
   </ion-list>
+  <!-- export list of contacts -->
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+    <ion-fab-button (click)="exportListContacts()">
+      <ion-icon name="share-outline" start left></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button (click)="ajouterContact()">
-      <ion-icon name="add-circle-outline" end right></ion-icon>
+      <ion-icon name="add-outline" end right></ion-icon>
     </ion-fab-button>
   </ion-fab>
 </ion-content>

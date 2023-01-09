@@ -7,7 +7,6 @@ import { ContactAccessService } from './../services/contact-access.service';
 @Component({
   selector: 'app-liste-contacts',
   templateUrl: './liste-contacts.page.html',
-  styleUrls: ['./liste-contacts.page.scss'],
 })
 export class ListeContactsPage implements OnInit {
   contacts: Contact[] = [];
@@ -33,11 +32,25 @@ export class ListeContactsPage implements OnInit {
     this.router.navigate(['/detail-contact'], navigationExtras);
   }
 
-  modifierContact(contact: Contact) {
-    console.log('Modifier le contactt', contact);
-  }
-
   ajouterContact() {
     this.navCtrl.navigateForward('/ajouter-contact', { replaceUrl: true });
+  }
+
+  exportListContacts() {
+    this.contactAccessService.exportListContacts();
+  }
+
+  async searchContact(event: any) {
+    const searchValue = event.target.value;
+    const data = await this.contactAccessService.getContacts();
+    data.subscribe((contacts) => (this.contacts = contacts));
+    if (searchValue && searchValue.trim() !== '') {
+      this.contacts = this.contacts.filter((contact) => {
+        return (
+          contact.nom.toLowerCase().indexOf(searchValue.toLowerCase()) > -1 ||
+          contact.prenom.toLowerCase().indexOf(searchValue.toLowerCase()) > -1
+        );
+      });
+    }
   }
 }

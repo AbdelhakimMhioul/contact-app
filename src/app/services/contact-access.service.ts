@@ -13,6 +13,7 @@ import {
   setDoc,
   where,
 } from '@angular/fire/firestore';
+import { AlertController } from '@ionic/angular';
 import { Observable } from 'rxjs';
 import Compte from 'src/interfaces/Compte';
 import Contact from 'src/interfaces/Contact';
@@ -21,7 +22,11 @@ import Contact from 'src/interfaces/Contact';
   providedIn: 'root',
 })
 export class ContactAccessService implements OnInit {
-  constructor(private firestore: Firestore, private auth: Auth) {}
+  constructor(
+    private firestore: Firestore,
+    private auth: Auth,
+    private alertCtrl: AlertController
+  ) {}
 
   ngOnInit() {}
 
@@ -66,6 +71,13 @@ export class ContactAccessService implements OnInit {
     });
   }
 
+  getAllContacts(): Observable<Contact[]> {
+    const contactsRef = collection(this.firestore, 'contacts');
+    return collectionData(contactsRef, {
+      idField: 'id',
+    }) as unknown as Observable<Contact[]>;
+  }
+
   getContactById(id: string): Observable<Contact> {
     const contactRef = doc(this.firestore, 'contacts', id);
     return docData(contactRef, {
@@ -101,5 +113,35 @@ export class ContactAccessService implements OnInit {
   deleteCompteById(id: string) {
     const contactRef = doc(this.firestore, 'contacts', id);
     return deleteDoc(contactRef);
+  }
+
+  async exportListContacts() {
+    const contactsRef = collection(this.firestore, 'contacts');
+    const contacts = collectionData(contactsRef, {
+      idField: 'id',
+    }) as unknown as Observable<Contact[]>;
+
+    const alert = await this.alertCtrl.create({
+      header: 'Exportation en cours...',
+      message: 'Veuillez patienter...',
+    });
+
+    await alert.present();
+
+    contacts.subscribe((contacts) => {
+      let csvContent = 'data:text/csv;charset=utf-8,';
+      csvContent += 'Nom,Prénom,Email,Numéro de téléphone,Adresse,Ville\r';
+      contacts.forEach((contact) => {
+        csvContent += `${contact.nom},${contact.prenom},${contact.email},${contact.phone},${contact.adresse},${contact.ville}`;
+      });
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement('a');
+      link.setAttribute('href', encodedUri);
+      link.setAttribute('download', 'contacts.csv');
+      document.body.appendChild(link);
+      link.click();
+    });
+
+    await alert.dismiss();
   }
 }

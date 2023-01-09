@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { ContactAuthService } from './services/contact-auth.service';
 
 interface IPageRoute {
@@ -12,12 +12,16 @@ interface IPageRoute {
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   email?: string;
   isAuthenticated = false;
+  darkMode = false;
 
   public appPages: IPageRoute[] = [];
-  constructor(private contactAuthService: ContactAuthService) {
+  constructor(
+    private contactAuthService: ContactAuthService,
+    private renderer: Renderer2
+  ) {
     this.email = this.getUserEmail() || '';
     this.isAuth().subscribe((isAuth) => {
       if (!isAuth) {
@@ -29,6 +33,7 @@ export class AppComponent {
             icon: 'home',
           },
           { title: 'Liste des contacts', url: '/liste-contacts', icon: 'list' },
+          { title: 'Recommandations', url: '/recommandations', icon: 'list' },
           {
             title: 'Authentification',
             url: '/authentification',
@@ -46,6 +51,7 @@ export class AppComponent {
             icon: 'home',
           },
           { title: 'Liste des contacts', url: '/liste-contacts', icon: 'list' },
+          { title: 'Recommandations', url: '/recommandations', icon: 'list' },
           { title: 'Ajouter contact', url: '/ajouter-contact', icon: 'add' },
           {
             title: 'Profile',
@@ -56,6 +62,16 @@ export class AppComponent {
       }
     });
   }
+
+  async ngOnInit() {}
+
+  toggleDarkMode = (event: any) => {
+    if (event.detail.checked) {
+      this.renderer.setAttribute(document.body, 'color-theme', 'dark');
+    } else {
+      this.renderer.setAttribute(document.body, 'color-theme', 'light');
+    }
+  };
 
   getUserEmail = () => this.contactAuthService.getUser()?.email;
 

@@ -8,7 +8,7 @@ const redirectUnauthorizedToLogin = () =>
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'loader',
     pathMatch: 'full',
   },
   {
@@ -22,6 +22,7 @@ const routes: Routes = [
       import('./liste-contacts/liste-contacts.module').then(
         (m) => m.ListeContactsPageModule
       ),
+    ...canActivate(redirectUnauthorizedToLogin),
   },
   {
     path: 'profile',
@@ -35,6 +36,7 @@ const routes: Routes = [
       import('./ajouter-contact/ajouter-contact.module').then(
         (m) => m.AjouterContactPageModule
       ),
+    ...canActivate(redirectUnauthorizedToLogin),
   },
   {
     path: 'detail-contact',
@@ -42,6 +44,7 @@ const routes: Routes = [
       import('./detail-contact/detail-contact.module').then(
         (m) => m.DetailContactPageModule
       ),
+    ...canActivate(redirectUnauthorizedToLogin),
   },
   {
     path: 'authentification',
@@ -63,6 +66,15 @@ const routes: Routes = [
       import('./inscription/inscription.module').then(
         (m) => m.InscriptionPageModule
       ),
+  },
+  {
+    path: 'loader',
+    loadChildren: () =>
+      import('./loader/loader.module').then((m) => m.LoaderPageModule),
+  },
+  {
+    path: 'recommandations',
+    loadChildren: () => import('./recommandations/recommandations.module').then( m => m.RecommandationsPageModule)
   },
 ];
 

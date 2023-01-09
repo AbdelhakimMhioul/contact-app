@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "projet-ionic-4bdac": {
+      "hosting": {
+        "app": [
+          "projet-ionic-4bdac"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "projet-ionic-4bdac"
+  }
+}

@@ -8,7 +8,17 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <form [formGroup]="inscriptionForm">
+  <form [formGroup]="inscriptionForm" novalidate>
+    <ion-avatar (click)="chooseBetweenCameraOrGallery()" style="margin: auto">
+      <img *ngIf="getImage() else placeholder_avatar" [src]="getImage()" />
+
+      <ng-template #placeholder_avatar>
+        <div class="placeholder_avatar">
+          <ion-icon name="person"></ion-icon>
+        </div>
+      </ng-template>
+    </ion-avatar>
+
     <ion-item fill="solid">
       <ion-input
         type="text"

@@ -39,6 +39,14 @@
             </ion-button>
           </ion-item>
         </ion-list>
+        <ion-item>
+          <ion-item>Dark / Light Mode</ion-item>
+          <ion-toggle
+            slot="end"
+            [checked]="darkMode"
+            (ionChange)="toggleDarkMode($event)"
+          ></ion-toggle>
+        </ion-item>
       </ion-content>
     </ion-menu>
     <ion-router-outlet id="main-content"></ion-router-outlet>

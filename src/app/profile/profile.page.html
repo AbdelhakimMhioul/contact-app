@@ -8,24 +8,36 @@
 </ion-header>
 
 <ion-content class="ion-padding">
+  <ion-avatar
+    (click)="chooseBetweenCameraOrGallery()"
+    style="text-align: center"
+  >
+    <img
+      *ngIf="profile?.image; else placeholder_avatar"
+      [src]="profile.image"
+    />
+
+    <ng-template #placeholder_avatar>
+      <div class="placeholder_avatar">
+        <ion-icon name="person"></ion-icon>
+      </div>
+    </ng-template>
+  </ion-avatar>
   <ion-item>
-    <ion-img [src]="" disabled="true"></ion-img>
+    <ion-label style="color: gray">Nom</ion-label>
+    <ion-input type="text" [(ngModel)]="profile.nom"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label>Nom</ion-label>
-    <ion-input type="text" disabled="true"> {{profile.nom}} </ion-input>
+    <ion-label style="color: gray">Prenom</ion-label>
+    <ion-input type="text" [(ngModel)]="profile.prenom"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label>Prenom</ion-label>
-    <ion-input type="text" disabled="true"> {{profile.prenom}}</ion-input>
+    <ion-label style="color: gray">Email</ion-label>
+    <ion-input type="email" [(ngModel)]="profile.email"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label>Email</ion-label>
-    <ion-input type="email" disabled="true"> {{profile.email}}</ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label>Phone</ion-label>
-    <ion-input type="tel" disabled="true"> {{profile.phone}} </ion-input>
+    <ion-label style="color: gray">Phone</ion-label>
+    <ion-input type="tel" [(ngModel)]="profile.phone"></ion-input>
   </ion-item>
   <ion-button expand="block" fill="outline" (click)="updateProfile()">
     Update Profile

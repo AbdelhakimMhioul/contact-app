@@ -5,4 +5,5 @@ export default interface Compte {
   email: string;
   password: string;
   phone: string;
+  image: string;
 }

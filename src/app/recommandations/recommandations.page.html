@@ -3,15 +3,12 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Home</ion-title>
+    <ion-title>Recommandations</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <h1 class="ion-text-center" style="padding-top: 100px; font-size: 40px">
-    Bienvenue sur l'application ContactApp
-  </h1>
-  <!-- <ion-list>
+<ion-content>
+  <ion-list>
     <ion-item
       *ngFor="let contact of contacts"
       (click)="detailsContact(contact)"
@@ -21,5 +18,5 @@
       </ion-thumbnail>
       <ion-label>{{contact.nom}} {{contact.prenom}}</ion-label>
     </ion-item>
-  </ion-list> -->
+  </ion-list>
 </ion-content>

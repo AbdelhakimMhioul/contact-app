@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 import { DetailContactPage } from './detail-contact.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: DetailContactPage
-  }
+    component: DetailContactPage,
+  },
 ];
 
 @NgModule({

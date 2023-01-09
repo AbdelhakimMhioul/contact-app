@@ -34,7 +34,6 @@ export class ContactAuthService {
   }
 
   async register(value: any) {
-    console.log('value', value);
     try {
       const user = await createUserWithEmailAndPassword(
         this.auth,

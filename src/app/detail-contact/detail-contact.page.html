@@ -8,6 +8,16 @@
 </ion-header>
 
 <ion-content class="ion-padding" *ngIf="contact">
+  <ion-avatar (click)="changeImage(contact.id)">
+    <img *ngIf="contact?.src; else placeholder_avatar" [src]="contact.src" />
+
+    <ng-template #placeholder_avatar>
+      <div class="placeholder_avatar">
+        <ion-icon name="person"></ion-icon>
+      </div>
+    </ng-template>
+  </ion-avatar>
+
   <ion-item>
     <ion-label>Nom</ion-label>
     <ion-input type="text" [(ngModel)]="contact.nom"></ion-input>
@@ -42,7 +52,49 @@
   <ion-button expand="block" fill="outline" (click)="deleteContact(contact)">
     Supprimer
   </ion-button>
-  <ion-button expand="block" fill="outline" (click)="shareContact(contact)">
+  <ion-button expand="block" fill="outline" (click)="shareContact()">
     Partager
   </ion-button>
+  <ion-button expand="block" fill="outline">
+    <a href="tel:{{ contact.phone }}">Appeler</a>
+  </ion-button>
+  <!-- share localisation -->
+  <ion-fab-button (click)="localisationAndSendItByWhatsapp()">
+    <ion-icon name="pin"></ion-icon>
+  </ion-fab-button>
+  <ion-button expand="block" fill="outline" id="open-modal">
+    Envoyer un mail
+  </ion-button>
+  <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="cancel()">Cancel</ion-button>
+          </ion-buttons>
+          <ion-buttons slot="end">
+            <ion-button (click)="confirm()" [strong]="true">Confirm</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <ion-item>
+          <ion-label position="stacked">Enter your subject</ion-label>
+          <ion-input
+            type="text"
+            placeholder="Your subject"
+            [(ngModel)]="subject"
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Enter your message</ion-label>
+          <ion-input
+            type="text"
+            placeholder="Your message"
+            [(ngModel)]="message"
+          ></ion-input>
+        </ion-item>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 </ion-content>

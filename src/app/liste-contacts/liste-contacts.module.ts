@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
@@ -13,8 +13,8 @@ import { ListeContactsPage } from './liste-contacts.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    ListeContactsPageRoutingModule
+    ListeContactsPageRoutingModule,
   ],
-  declarations: [ListeContactsPage]
+  declarations: [ListeContactsPage],
 })
 export class ListeContactsPageModule {}

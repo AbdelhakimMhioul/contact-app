@@ -7,7 +7,6 @@ import { ContactAuthService } from '../services/contact-auth.service';
 @Component({
   selector: 'app-authentification',
   templateUrl: './authentification.page.html',
-  styleUrls: ['./authentification.page.scss'],
 })
 export class AuthentificationPage {
   authForm: FormGroup;
